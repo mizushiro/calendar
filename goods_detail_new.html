@@ -123,7 +123,7 @@ $(function() {
 		var $text1 = $calendar.find('.text__day-title').eq(0);
 		var $text2 = $calendar.find('.text__day-title').eq(1);
 		//구간별 레이어 class 설정
-		if (AIRFINDER) {
+		if (ROOMFINDER) {
 			$calendar.attr('class', 'box__layer-air-finder box__layer-air-finder-calendar box__layer-air-finder-calendar--roundtrip');
 			$input1.attr('placeholder', '체크인 선택');
 			$input2.attr('placeholder', '체크아웃 선택');
@@ -131,7 +131,7 @@ $(function() {
 			$text2.text('체크아웃');
 		}
 		airCalendar.init();
-		//VERTICALCOMMONUI.hashLayerOpen(hash, $(this));
+		VERTICALCOMMONUI.hashLayerOpen(hash,$(this));
 
 	});
 
@@ -150,8 +150,6 @@ $(function() {
 		layerCloseControl('#box__layer-calendar');
 	});
 });
-
-
 </script>
 </body>
 </html>

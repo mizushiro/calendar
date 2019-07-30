@@ -1,4 +1,4 @@
-AIRFINDER = {
+ROOMFINDER = {
     lineType : 'RT',
     set : {
         date :{
@@ -14,7 +14,7 @@ AIRFINDER = {
     }, //set
 };
 
-AIRFINDER.search = {
+ROOMFINDER.search = {
     init: function(){
         this.finderCategorySlider();
         this.finderInputReset();
@@ -23,12 +23,12 @@ AIRFINDER.search = {
     },
     set : function(setData){
         if(setData){
-            $.extend(AIRFINDER.set,setData)
+            $.extend(ROOMFINDER.set,setData)
         }
         this.updateFinder();
     },
     updateFinder : function(){
-        var dataRoot  = AIRFINDER.set;
+        var dataRoot  = ROOMFINDER.set;
         var dateSplit = function(d){ //년도삭제된 날짜구하기
             return d.substr(5,9);
         }
@@ -49,7 +49,7 @@ AIRFINDER.search = {
                 }
             }
         });
-        AIRFINDER.search.finderInputIsEmptyDetect();
+        ROOMFINDER.search.finderInputIsEmptyDetect();
     },
     finderCategorySlider : function(){
         $(document).on('click','.box__layer-air-finder .js-slider',function(e){
@@ -153,11 +153,11 @@ var airCalendar = {
     },
     getDate : function(){ // strored date get
         var d1='', d2='',  day1='', day2='';
-        var line = AIRFINDER.lineType;
-        var dateRoot = AIRFINDER.set.date[line];
-        d1 = AIRFINDER.set.date[AIRFINDER.lineType][0].sVal !== ''?dateRoot[0].sVal:'';
+        var line = ROOMFINDER.lineType;
+        var dateRoot = ROOMFINDER.set.date[line];
+        d1 = ROOMFINDER.set.date[ROOMFINDER.lineType][0].sVal !== ''?dateRoot[0].sVal:'';
         d2 = line == 'RT'? dateRoot[0].eVal : dateRoot[1].sVal;
-        day1 = AIRFINDER.set.date[AIRFINDER.lineType][0].sDay !== ''?dateRoot[0].sDay:'';
+        day1 = ROOMFINDER.set.date[ROOMFINDER.lineType][0].sDay !== ''?dateRoot[0].sDay:'';
         day2 = line == 'RT'? dateRoot[0].eDay : dateRoot[1].sDay;
         this.updateDates(d1, d2, day1, day2)
     },
@@ -170,7 +170,7 @@ var airCalendar = {
             this.days[i] = eval('day'+n);
             $(this.inputs['day'+n]).val( this.dates[i] );//달력 레이어 인풋에 값 setting
         }
-        AIRFINDER.search.finderInputIsEmptyDetect();
+        ROOMFINDER.search.finderInputIsEmptyDetect();
     },
     storeDates :function(){ //데이터 저장
         var d1 = this.dates[0];
@@ -181,8 +181,8 @@ var airCalendar = {
             return d.substr(5,9);
         }
 
-        var line = AIRFINDER.lineType;
-        var dataRoot = AIRFINDER.set.date[line];
+        var line = ROOMFINDER.lineType;
+        var dataRoot = ROOMFINDER.set.date[line];
 
         if((d1 !== '') && line =='RT') { // 체크인
             $('#'+dataRoot[0].sId).val(d1).next('.box__date-info').find('.text__date').text(day1+'요일');
@@ -194,7 +194,7 @@ var airCalendar = {
             dataRoot[0].eVal = d2;
             dataRoot[0].eDay = day2;
         }
-        AIRFINDER.search.finderInputIsEmptyDetect();
+        ROOMFINDER.search.finderInputIsEmptyDetect();
     },
     callDraw : function(){
         drawAirDatepicker();
@@ -206,7 +206,7 @@ var airCalendar = {
         $('.box__layer-air-finder .js-button__date-select').removeClass('link__selected--active').text('날짜 선택');
     },
     checkActiveButton : function(){
-        var line = AIRFINDER.lineType;
+        var line = ROOMFINDER.lineType;
         var inputVal01 = $(this.inputs.day1).val();
         var inputVal02 = $(this.inputs.day2).val();
         if(line == 'RT' && inputVal01 !== '' && inputVal02 !== '') {
@@ -220,8 +220,8 @@ var drawAirDatepicker =  function(){
     //layer input jquery객체
     var $d1 = $(airCalendar.inputs.day1);
     var $d2 = $(airCalendar.inputs.day2);
-    var line = AIRFINDER.lineType;
-    var dateRoot = AIRFINDER.set.date[AIRFINDER.lineType];
+    var line = ROOMFINDER.lineType;
+    var dateRoot = ROOMFINDER.set.date[ROOMFINDER.lineType];
 
     var parsedate = function(d){
         return $.datepicker.parseDate(airCalendar.dateFormat,d);
@@ -248,9 +248,9 @@ var drawAirDatepicker =  function(){
             var checkText = '';
             for (var i = 0; i < airCalendar.dates.length; i++) {
                 if(i == 0){
-                    checkText = AIRFINDER.lineType !== '체크인';
+                    checkText = ROOMFINDER.lineType !== '체크인';
                 }else if ( i == 1) {
-                    checkText = AIRFINDER.lineType !== '체크아웃';
+                    checkText = ROOMFINDER.lineType !== '체크아웃';
                 }/*else if ( i == 2){
                     checkText = '여정3'
                 }*/
@@ -270,6 +270,7 @@ var drawAirDatepicker =  function(){
 
             //하이라이트 조건
             var highlightCondition = date1 && ((date == date1) || (date2 && date >= date1 && date <= date2));
+
 
             if(date.getDay() === 0){
                 rtnStr = highlightCondition? classes + ' ui-datepicker-holiday':'ui-datepicker-holiday';
@@ -296,13 +297,22 @@ var drawAirDatepicker =  function(){
             return [true, highlightCondition ? classes : ""]; // range 표시 클래스 출력
         },
         onSelect: function(dateText, inst) {
+
+            console.log(dateText, inst);
+
             var d1,d2;
             d1 = $d1.val();
             d2 = $d2.val();
+
+            console.log("d1:", d1, "d2:", d2);
+
             var selectedDate = dateText;
             var day = new Date(dateText.replace(/\./g, '/'));
             var d = airCalendar.dayNamesMin[day.getDay()]; //요일
             if(( !d1 && d2) && (selectedDate < d2) ){
+
+                console.log("#1");
+
                 $d1.val(dateText); // first input print
                 $d2.val("").parents('.list-item').addClass('list-item--active'); // remove active
                 airCalendar.dates[0] = dateText;
@@ -313,6 +323,9 @@ var drawAirDatepicker =  function(){
                 $(this).datepicker();
             }
             if (!d1 || line == 'RT' && d2)  {
+
+                console.log("#2");
+                //첫번째 데이터 선택
                 $d1.val(dateText); // first input print
                 $d2.val("").parents('.list-item').addClass('list-item--active'); // remove active
                 airCalendar.dates[0] = dateText;
@@ -324,6 +337,8 @@ var drawAirDatepicker =  function(){
                 $(this).datepicker();
             }
             else if( !d2 && line == 'RT') { // second input print
+                //두번째 데이터 선택
+                console.log("#3");
                 $d2.val(dateText);
                 airCalendar.dates[1] = dateText
                 //airCalendar.dates[2] = '';
@@ -332,7 +347,41 @@ var drawAirDatepicker =  function(){
                 $d2.siblings('.box__date-info').find('.text__date').text(airCalendar.days[1]);
                 $(this).datepicker();
             }
-            AIRFINDER.search.finderInputIsEmptyDetect();
+
+            if(dateText != '' && d1 != ''&& dateText.replace(/\./g, '') < d1.replace(/\./g, '')) {
+                console.log("#4");
+
+                airCalendar.dates[0] = dateText;
+                airCalendar.dates[1] = '';
+                airCalendar.days[0] = airCalendar.dayNamesMin[new Date($d2.val().replace(/\./g, '/')).getDay()];
+                airCalendar.days[1] = '';
+                $d1.val(dateText);
+                $d2.val('');
+                airCalendar.checkActiveButton();
+                $d1.siblings('.box__date-info').find('.text__date').text(airCalendar.days[0])
+                $d2.siblings('.box__date-info').find('.text__date').text(airCalendar.days[1]);
+                $(this).datepicker()
+            }
+
+            /*
+            //시작날짜와 종료날짜를 반대로 처리 하는 로직
+            //첫번째 날짜가 빈값이 아니고 2번째 선택된 날짜 정보가 있을 경우 2번째 선택된 날짜가 1번째 날짜보다 작은 경우
+            if(dateText != '' && d1 != ''&& dateText.replace(/\./g, '') < d1.replace(/\./g, '')) {
+                console.log("#4");
+                $d2.val($d1.val());
+                $d1.val(dateText);
+                airCalendar.dates[0] = $d1.val();
+                airCalendar.dates[1] = $d2.val();
+                airCalendar.days[0] = airCalendar.dayNamesMin[new Date($d1.val().replace(/\./g, '/')).getDay()];
+                airCalendar.days[1] = airCalendar.dayNamesMin[new Date($d2.val().replace(/\./g, '/')).getDay()];
+                airCalendar.checkActiveButton();
+                $d1.siblings('.box__date-info').find('.text__date').text(airCalendar.days[0])
+                $d2.siblings('.box__date-info').find('.text__date').text(airCalendar.days[1]);
+                $(this).datepicker()
+            }
+            */
+            ROOMFINDER.search.finderInputIsEmptyDetect();
+
         }
     });
 }//drawAirDatepicker
