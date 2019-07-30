@@ -81,7 +81,7 @@ $(function(){
     VERTICALCOMMONUI.init();
 });
 
-ROOMFINDER = {
+AIRFINDER = {
     lineType : 'RT',
     set : {
         date :{
@@ -97,7 +97,7 @@ ROOMFINDER = {
     }, //set
 };
 
-ROOMFINDER.search = {
+AIRFINDER.search = {
     init: function(){
         this.finderCategorySlider();
         this.finderInputReset();
@@ -106,12 +106,12 @@ ROOMFINDER.search = {
     },
     set : function(setData){
         if(setData){
-            $.extend(ROOMFINDER.set,setData)
+            $.extend(AIRFINDER.set,setData)
         }
         this.updateFinder();
     },
     updateFinder : function(){
-        var dataRoot  = ROOMFINDER.set;
+        var dataRoot  = AIRFINDER.set;
         var dateSplit = function(d){ //년도삭제된 날짜구하기
             return d.substr(5,9);
         }
@@ -132,7 +132,7 @@ ROOMFINDER.search = {
                 }
             }
         });
-        ROOMFINDER.search.finderInputIsEmptyDetect();
+        AIRFINDER.search.finderInputIsEmptyDetect();
     },
     finderCategorySlider : function(){
         $(document).on('click','.box__layer-air-finder .js-slider',function(e){
@@ -236,11 +236,11 @@ var airCalendar = {
     },
     getDate : function(){ // strored date get
         var d1='', d2='',  day1='', day2='';
-        var line = ROOMFINDER.lineType;
-        var dateRoot = ROOMFINDER.set.date[line];
-        d1 = ROOMFINDER.set.date[ROOMFINDER.lineType][0].sVal !== ''?dateRoot[0].sVal:'';
+        var line = AIRFINDER.lineType;
+        var dateRoot = AIRFINDER.set.date[line];
+        d1 = AIRFINDER.set.date[AIRFINDER.lineType][0].sVal !== ''?dateRoot[0].sVal:'';
         d2 = line == 'RT'? dateRoot[0].eVal : dateRoot[1].sVal;
-        day1 = ROOMFINDER.set.date[ROOMFINDER.lineType][0].sDay !== ''?dateRoot[0].sDay:'';
+        day1 = AIRFINDER.set.date[AIRFINDER.lineType][0].sDay !== ''?dateRoot[0].sDay:'';
         day2 = line == 'RT'? dateRoot[0].eDay : dateRoot[1].sDay;
         this.updateDates(d1, d2, day1, day2)
     },
@@ -253,7 +253,7 @@ var airCalendar = {
             this.days[i] = eval('day'+n);
             $(this.inputs['day'+n]).val( this.dates[i] );//달력 레이어 인풋에 값 setting
         }
-        ROOMFINDER.search.finderInputIsEmptyDetect();
+        AIRFINDER.search.finderInputIsEmptyDetect();
     },
     storeDates :function(){ //데이터 저장
         var d1 = this.dates[0];
@@ -264,8 +264,8 @@ var airCalendar = {
             return d.substr(5,9);
         }
 
-        var line = ROOMFINDER.lineType;
-        var dataRoot = ROOMFINDER.set.date[line];
+        var line = AIRFINDER.lineType;
+        var dataRoot = AIRFINDER.set.date[line];
 
         if((d1 !== '') && line =='RT') { // 체크인
             $('#'+dataRoot[0].sId).val(d1).next('.box__date-info').find('.text__date').text(day1+'요일');
@@ -277,7 +277,7 @@ var airCalendar = {
             dataRoot[0].eVal = d2;
             dataRoot[0].eDay = day2;
         }
-        ROOMFINDER.search.finderInputIsEmptyDetect();
+        AIRFINDER.search.finderInputIsEmptyDetect();
     },
     callDraw : function(){
         drawAirDatepicker();
@@ -289,7 +289,7 @@ var airCalendar = {
         $('.box__layer-air-finder .js-button__date-select').removeClass('link__selected--active').text('날짜 선택');
     },
     checkActiveButton : function(){
-        var line = ROOMFINDER.lineType;
+        var line = AIRFINDER.lineType;
         var inputVal01 = $(this.inputs.day1).val();
         var inputVal02 = $(this.inputs.day2).val();
         if(line == 'RT' && inputVal01 !== '' && inputVal02 !== '') {
@@ -303,8 +303,8 @@ var drawAirDatepicker =  function(){
     //layer input jquery객체
     var $d1 = $(airCalendar.inputs.day1);
     var $d2 = $(airCalendar.inputs.day2);
-    var line = ROOMFINDER.lineType;
-    var dateRoot = ROOMFINDER.set.date[ROOMFINDER.lineType];
+    var line = AIRFINDER.lineType;
+    var dateRoot = AIRFINDER.set.date[AIRFINDER.lineType];
 
     var parsedate = function(d){
         return $.datepicker.parseDate(airCalendar.dateFormat,d);
@@ -331,9 +331,9 @@ var drawAirDatepicker =  function(){
             var checkText = '';
             for (var i = 0; i < airCalendar.dates.length; i++) {
                 if(i == 0){
-                    checkText = ROOMFINDER.lineType !== '체크인';
+                    checkText = AIRFINDER.lineType !== '체크인';
                 }else if ( i == 1) {
-                    checkText = ROOMFINDER.lineType !== '체크아웃';
+                    checkText = AIRFINDER.lineType !== '체크아웃';
                 }/*else if ( i == 2){
                     checkText = '여정3'
                 }*/
@@ -415,7 +415,7 @@ var drawAirDatepicker =  function(){
                 $d2.siblings('.box__date-info').find('.text__date').text(airCalendar.days[1]);
                 $(this).datepicker();
             }
-            ROOMFINDER.search.finderInputIsEmptyDetect();
+            AIRFINDER.search.finderInputIsEmptyDetect();
         }
     });
 }//drawAirDatepicker
