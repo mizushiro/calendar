@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>상품상세 :: Gmarket</title>
+</head>
+
+<style>
+	#box__layer-calendar {display:none}
+	.ui-datepicker-hover a,
+	.ui-datepicker-hover:after {background-color:#8c9baf !important;color:#fff !important}
+	.ui-datepicker-select a {background-color:#434f5f;color:#fff !important}
+	.ui-datepicker {background:#fff;padding:10px}
+	.ui-datepicker:after {display:block;content:'';height:0;overflow:hidden;clear:both}
+	.ui-datepicker .ui-datepicker-group {float:left;width:50%}
+	.ui-datepicker .ui-datepicker-header {padding:0}
+	/*.ui-datepicker .ui-datepicker-header .ui-datepicker-prev, .ui-datepicker .ui-datepicker-header .ui-datepicker-next{background:#000;cursor:pointer;height:15px;overflow:hidden;position:absolute;text-indent:0;top:5px;user-select:none;width:15px}
+	.ui-datepicker .ui-datepicker-header .ui-datepicker-prev:hover, .ui-datepicker .ui-datepicker-header .ui-datepicker-next:hover{background-color:#050505}
+	.ui-datepicker .ui-datepicker-header .ui-datepicker-prev.ui-state-disabled, .ui-datepicker .ui-datepicker-header .ui-datepicker-next.ui-state-disabled{opacity:0.3}
+	.ui-datepicker .ui-datepicker-header .ui-datepicker-prev{left:10px}
+	.ui-datepicker .ui-datepicker-header .ui-datepicker-next{right:10px}*/
+	.ui-datepicker .ui-datepicker-calendar{border-collapse:collapse;font-size:12px;cursor:default}
+	.ui-datepicker .ui-datepicker-calendar th, .ui-datepicker .ui-datepicker-calendar td{text-align:center;vertical-align:middle;width:36px;height:30px;line-height:30px;padding:0;z-index:1}
+	.ui-datepicker .ui-datepicker-calendar th{color:#62748c;font:0.4666666667 "Arial"}
+	.ui-datepicker .ui-datepicker-calendar td{color:#8d8d8d;padding:0 0 1px;position:relative}
+	.ui-datepicker .ui-datepicker-calendar td:before, .ui-datepicker .ui-datepicker-calendar td:after{bottom:2px;content:'';left:0;top:2px;position:absolute;z-index:-1}
+	.ui-datepicker .ui-datepicker-calendar .ui-point:before, .ui-datepicker .ui-datepicker-calendar .ui-checkout:before{
+		display:inline-block;position:absolute;top:6px;left:50%;z-index:-1;width:32px;height:32px;border-radius:16px;background:#2e8de5;content:'';transform:translate(-50%,0);-webkit-transform:translate(-50%,0)}
+	.ui-datepicker .ui-datepicker-calendar td.ui-datepicker-other-month, .ui-datepicker .ui-datepicker-calendar td.ui-state-disabled{color:#d0d0d0}
+	.ui-datepicker td span, .ui-datepicker td a {display:block;height:44px;line-height:44px;font-size:14px;color:#222;text-align:center}
+	.ui-datepicker .ui-datepicker-unselectable span{color:#ccc}
+	.ui-datepicker .ui-datepicker-calendar .ui-datepicker-highlight:after{background:#e0eefb;z-index:-2;display:inline-block;position:absolute;top:6px;width:150%;height:32px;border-radius:16px;content:'';border-radius:0}
+	.ui-datepicker .ui-datepicker-calendar .ui-point:after{display:none}
+	.ui-datepicker .ui-datepicker-calendar .ui-point a{color:#fff;font-weight:bold}
+	.ui-datepicker .ui-datepicker-calendar .ui-point.ui-datepicker-hover .ui-state-hover{border-radius:50%}
+	.ui-datepicker .ui-datepicker-calendar .ui-datepicker-hover .ui-state-hover{border-radius:0 50% 50% 0}
+	.ui-datepicker-trigger{float:left;height:15px;margin:13px 0 0 -35px;overflow:hidden;text-indent:-100em;width:16px}
+	.ui-datepicker .ui-datepicker-calendar .ui-point + .ui-point a:before{background:#e0eefb;z-index:-2;display:inline-block;position:absolute;top:6px;left:-50%;width:100%;height:32px;border-radius:16px;content:'';border-radius:0;}
+	.ui-datepicker .ui-datepicker-calendar .ui-datepicker-holiday a{color:#e93737}
+	.box__layer-air-finder-calendar--multi .ui-datepicker tr td:last-child.ui-point[title='여정2'] a:after{margin-left:0 !important;}
+
+	.box__calendar-containe.ui-datepicker td,.box__calendar-container .ui-datepicker span,.box__calendar-container .ui-datepicker a{padding:0}
+	.box__calendar-container .ui-datepicker-multi .ui-datepicker-group table{width:100% !important}
+	.ui-datepicker .ui-datepicker-calendar th{color:#757c8a;font-size:12px;height:16px;line-height:18px;text-align:center}
+	.ui-datepicker .ui-datepicker-calendar .ui-datepicker-week-end span[title='Sunday']{color:#ed6060}
+	.ui-datepicker .ui-datepicker-calendar .ui-point + .ui-datepicker-highlight{z-index:0}
+	.ui-datepicker .ui-datepicker-calendar .ui-point + .ui-datepicker-highlight:after{width:200%;left:-50%}
+	.ui-datepicker .ui-datepicker-calendar .ui-datepicker-today:after{content:'오늘';display:inline-block;position:absolute;z-index:2;background:transparent;left:50%;top:41px;width:40px;font-size:9px;line-height:9px;color:#41d241;text-align:center;-webkit-transform:translate(-50%,0)}
+	.ui-datepicker-calendar thead tr th:first-child{color:#ed6060}
+	.ui-datepicker-calendar tbody tr td:first-child a{color:#e93737}
+	.ui-datepicker .ui-datepicker-calendar .ui-point:after{content:'';display:inline-block;position:absolute;z-index:2;background:transparent;left:50%;top:41px;width:40px;font-size:9px;line-height:9px;color:#2e8de5;text-align:center;-webkit-transform:translate(-50%,0)}
+	.ui-datepicker .ui-datepicker-calendar .ui-point + .ui-point.ui-datepicker-highlight:after{width:40px;left:50%}
+	.ui-datepicker .ui-datepicker-calendar .ui-point[title='체크인']:after{content:'체크인';}
+	.ui-datepicker .ui-datepicker-calendar .ui-point[title='체크아웃']:after{content:'체크아웃';}
+	.ui-datepicker .ui-datepicker-calendar .ui-point{z-index:2;}
+	.ui-datepicker .ui-datepicker-calendar .ui-point + .ui-point{z-index:1;}
+	.ui-datepicker .ui-datepicker-calendar .ui-point + .ui-point + .ui-datepicker-highlight,
+	.ui-datepicker .ui-datepicker-calendar .ui-point + .ui-point + .ui-point{z-index:0;}
+</style>
+
+<div class="test-data" style="background:#eee;z-index:10000;position: relative">
+	<div class="box__date-set sprite__air-common--before">
+		<div class="box__start">
+			<a href="#box__layer-calendar" class="link__set-date sprite__air-common--before">
+				<input id="rt_departure_1" type="text" class="form__input-day" value="" size="10" readonly="" data-index="0" placeholder="체크인" title="체크인 선택" data-key="sVal" />
+				<span class="box__date-info"><em class="text__date"></em></span>
+			</a>
+		</div>
+		<div class="box__end">
+			<a href="#box__layer-calendar" class="link__set-date">
+				<input id="rt_arrival_1" type="text" class="form__input-day" readonly="" data-index="0" placeholder="체크아웃" title="체크아웃 선택" data-key="eVal" />
+				<span class="box__date-info"><em class="text__date"></em></span>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div id="box__layer-calendar" class="box__layer-air-finder box__layer-air-finder-calendar box__layer-air-finder-calendar--roundtrip"><!-- 구간 개수에 따라 box__layer-air-finder-calendar--roundtrip ,  box__layer-air-finder-calendar--oneway ,  box__layer-air-finder-calendar--multi 추가됨 -->
+	<h3 class="text__layer-header">날짜 선택</h3>
+	<div class="box__calendar-container">
+		<div id="airdatepicker"></div><!-- datepicker box -->
+	</div>
+
+	<div class="box__selected-day">
+		<ul class="list__selected-day sprite__air-common--before">
+			<li class="list-item">
+				<input type="text" id="form__input-layer-date1" class="form__input-layer-date" size="10" val="" placeholder="체크인 선택" readonly /><!-- placeholder 가는날 or 여정1-->
+				<span class="box__date-info"><em class="text__date"></em></span>
+			</li>
+			<li class="list-item list-item--active">
+				<input type="text" id="form__input-layer-date2" class="form__input-layer-date" placeholder="체크아웃 선택" readonly /><!-- 오는날 or 여정2-->
+				<span class="box__date-info"><em class="text__date"></em></span>
+			</li>
+			<!--<li class="list-item">
+				<input type="text" id="form__input-layer-date3" class="form__input-layer-date" placeholder="여정3" readonly />&lt;!&ndash;여정3 &ndash;&gt;
+				<span class="text__day-title">여정3</span>
+			</li>-->
+		</ul>
+		<div class="box__button"><a href="#" class="link__selected js-button__date-select">날짜 선택</a></div>
+	</div>
+
+	<button class="button__close js-button__close sprite__air-common--before">X<span class="for-a11y">닫기</span></button>
+</div>
+
+
+<!-- calender -->
+<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="jquery-ui.1.11.4.min.js"></script>
+<script type="text/javascript" src="calendar.js"></script>
+
+
+<script>
+// 달력 테스트
+$(function() {
+	$(document).on('click', '.link__set-date', function () {
+		var hash = $(this).attr('href');
+		var $calendar = $('#box__layer-calendar');
+		var $input1 = $calendar.find('.form__input-layer-date').eq(0);
+		var $input2 = $calendar.find('.form__input-layer-date').eq(1);
+		var $text1 = $calendar.find('.text__day-title').eq(0);
+		var $text2 = $calendar.find('.text__day-title').eq(1);
+		//구간별 레이어 class 설정
+		if (AIRFINDER) {
+			$calendar.attr('class', 'box__layer-air-finder box__layer-air-finder-calendar box__layer-air-finder-calendar--roundtrip');
+			$input1.attr('placeholder', '체크인 선택');
+			$input2.attr('placeholder', '체크아웃 선택');
+			$text1.text('체크인');
+			$text2.text('체크아웃');
+		}
+		airCalendar.init();
+		VERTICALCOMMONUI.hashLayerOpen(hash,$(this));
+
+	});
+
+	//달력 닫기 :: 목업확인용
+	$(document).on('click', '#box__layer-calendar .js-button__close', function (e) {
+		e.preventDefault();
+		airCalendar.storeDates();
+
+		layerCloseControl('#box__layer-calendar');
+	});
+	//달력 날짜 선택완료 닫기 :: 목업확인용
+	$(document).on('click', '.js-button__date-select.link__selected--active', function (e) {
+		e.preventDefault();
+		airCalendar.storeDates();
+
+		layerCloseControl('#box__layer-calendar');
+	});
+});
+
+
+
+</script>
+</body>
+</html>
