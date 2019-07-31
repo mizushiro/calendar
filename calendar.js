@@ -184,7 +184,7 @@ var airCalendar = {
         var line = ROOMFINDER.lineType;
         var dataRoot = ROOMFINDER.set.date[line];
 
-        if((d1 !== '') && line =='RT') { // 체크인
+        /*if((d1 !== '') && line =='RT') { // 체크인
             $('#'+dataRoot[0].sId).val(d1).next('.box__date-info').find('.text__date').text(day1+'요일');
             dataRoot[0].sVal = d1;
             dataRoot[0].sDay = day1;
@@ -193,7 +193,11 @@ var airCalendar = {
             $('#'+dataRoot[0].eId).val(d2).next('.box__date-info').find('.text__date').text(day2+'요일');
             dataRoot[0].eVal = d2;
             dataRoot[0].eDay = day2;
-        }
+        }*/
+
+        // 요일
+        $('#'+dataRoot[0].sId).val(d1).next('.box__date-info').find('.text__date').text(day1+'요일');
+        $('#'+dataRoot[0].eId).val(d2).next('.box__date-info').find('.text__date').text(day2+'요일');
 
         // 일수 계산
         var arr1_1 = d1.split('.');
