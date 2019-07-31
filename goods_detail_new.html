@@ -83,20 +83,16 @@
 	</div>
 
 	<div class="box__selected-day">
-		<ul class="list__selected-day sprite__air-common--before">
-			<li class="list-item">
+		<div class="list__selected-day sprite__air-common--before">
+			<div class="list-item">
 				<input type="text" id="form__input-layer-date1" class="form__input-layer-date" size="10" val="" placeholder="체크인 선택" readonly onchange="testsubmit();" /><!-- placeholder 가는날 or 여정1-->
 				<span class="box__date-info"><em class="text__date"></em></span>
-			</li>
-			<li class="list-item list-item--active">
+			</div>
+			<div class="list-item list-item--active">
 				<input type="text" id="form__input-layer-date2" class="form__input-layer-date" placeholder="체크아웃 선택" readonly onchange="testsubmit();" /><!-- 오는날 or 여정2-->
 				<span class="box__date-info"><em class="text__date"></em></span>
-			</li>
-			<!--<li class="list-item">
-				<input type="text" id="form__input-layer-date3" class="form__input-layer-date" placeholder="여정3" readonly />&lt;!&ndash;여정3 &ndash;&gt;
-				<span class="text__day-title">여정3</span>
-			</li>-->
-		</ul>
+			</div>
+		</div>
 		<p><span id="day__count1"></span>박</p>
 		<div class="box__button"><a href="#" class="link__selected js-button__date-select">날짜 선택</a></div>
 	</div>

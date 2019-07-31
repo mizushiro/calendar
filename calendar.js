@@ -263,9 +263,9 @@ var drawAirDatepicker =  function(){
             var checkText = '';
             for (var i = 0; i < airCalendar.dates.length; i++) {
                 if(i == 0){
-                    checkText = ROOMFINDER.lineType !== '체크인';
+                    checkText = '체크인';
                 }else if ( i == 1) {
-                    checkText = ROOMFINDER.lineType !== '체크아웃';
+                    checkText = '체크아웃';
                 }/*else if ( i == 2){
                     checkText = '여정3'
                 }*/
