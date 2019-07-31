@@ -134,8 +134,9 @@ $(function() {
 		//var $firstTd = $('td[data-year=2019][data-month=7] a:contains("1")');
 
 		for (var i = 1; i <= 31; i++) {
-			var r = (Math.floor(Math.random() * 100) + 1) * 1000;
-			//var r = r.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			//var r = (Math.floor(Math.random() * 100) + 1) * 1000;
+			var r = (Math.floor(124000));
+			var r = r.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 			//$('td').eq(i + firstIndex).append('<p style="font-size: 12px;">' + r + '</p>');
 			$('td[data-year=2019][data-month=7]').eq(i + firstIndex).append('<p style="font-size:12px;">' + r + '</p>');

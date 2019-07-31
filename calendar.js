@@ -150,6 +150,7 @@ var airCalendar = {
             }
         }
     },
+
     getDate : function(){ // strored date get
         var d1='', d2='',  day1='', day2='';
         var line = ROOMFINDER.lineType;
