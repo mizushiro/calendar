@@ -368,7 +368,7 @@ var drawAirDatepicker =  function(){
 
                 airCalendar.dates[0] = dateText;
                 airCalendar.dates[1] = '';
-                airCalendar.days[0] = airCalendar.dayNamesMin[new Date($d2.val().replace(/\./g, '/')).getDay()];
+                airCalendar.days[0] = airCalendar.dayNamesMin[new Date($d1.val().replace(/\./g, '/')).getDay()];
                 airCalendar.days[1] = '';
                 $d1.val(dateText);
                 $d2.val('');
