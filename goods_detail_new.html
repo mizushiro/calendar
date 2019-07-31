@@ -6,7 +6,7 @@
 </head>
 
 <style>
-	/*#box__layer-calendar {display:none}*/
+	#box__layer-calendar {display:none}
 	.ui-datepicker-hover a,
 	.ui-datepicker-hover:after {background-color:#8c9baf !important;color:#fff !important}
 	.ui-datepicker-select a {background-color:#434f5f;color:#fff !important}
@@ -97,7 +97,7 @@
 				<span class="text__day-title">여정3</span>
 			</li>-->
 		</ul>
-		<p><span></span>박</p>
+		<p><input type="text" id="num_nights">박</p>
 		<div class="box__button"><a href="#" class="link__selected js-button__date-select">날짜 선택</a></div>
 	</div>
 
@@ -132,7 +132,6 @@ $(function() {
 		}
 		airCalendar.init();
 		VERTICALCOMMONUI.hashLayerOpen(hash,$(this));
-
 	});
 
 	//달력 닫기 :: 목업확인용
