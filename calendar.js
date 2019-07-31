@@ -98,8 +98,7 @@ var airCalendar = {
     showMonthAfterYear: true,
     inputs: {
         day1: '#form__input-layer-date1',
-        day2: '#form__input-layer-date2',
-        day3: '#form__input-layer-date3'
+        day2: '#form__input-layer-date2'
     },
     dates : ['', '', ''], //날짜 temporal store
     days : ['', '', ''], //요일
@@ -258,21 +257,19 @@ var drawAirDatepicker =  function(){
         beforeShowDay: function(date) {
             var date1 = parsedate($d1.val());
             var date2 = parsedate($d2.val());
-            //var date3 = parsedate($d3.val());
             var classes = 'ui-datepicker-highlight';
-            var checkText = '';
+            //var checkText = '';
             for (var i = 0; i < airCalendar.dates.length; i++) {
-                if(i == 0){
+                /*if(i == 0){
                     checkText = '체크인';
                 }else if ( i == 1) {
                     checkText = '체크아웃';
-                }/*else if ( i == 2){
-                    checkText = '여정3'
                 }*/
                 var stringifyD =(airCalendar.dates[i]).toString();
                 var paseD = new Date(stringifyD.replace(/\./g, '/'));
                 if ( paseD == date.toString()) {
-                    return [true, 'ui-point', ""+checkText+""];
+                    //return [true, 'ui-point', ""+checkText+""];
+                    return [true, 'ui-point'];
                 } //point 표시 출력
             }
 
@@ -409,7 +406,6 @@ var drawAirDatepicker =  function(){
             }
             */
             ROOMFINDER.search.finderInputIsEmptyDetect();
-
         }
     });
 }//drawAirDatepicker

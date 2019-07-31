@@ -127,13 +127,21 @@ $(function() {
 		airCalendar.init();
 		VERTICALCOMMONUI.hashLayerOpen(hash,$(this));
 
-		/*function testsubmit() {
-			var dt1 = new Date($('#form__input-layer-date1').val());
-			var dt2 = new Date($('#form__input-layer-date2').val());
-			var diff =  Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
-			$('#diff').val( diff );
-			return false;
-		}*/
+		var $MonthTdList = $('td[data-year=2019][data-month=7]');
+		var $firstTd = $('td[data-year=2019][data-month=7] a:contains("1")').eq(0);
+		var firstIndex = $MonthTdList.index($firstTd);
+
+		//var $firstTd = $('td[data-year=2019][data-month=7] a:contains("1")');
+
+		for (var i = 1; i <= 31; i++) {
+			var r = (Math.floor(Math.random() * 100) + 1) * 1000;
+			//var r = r.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+			//$('td').eq(i + firstIndex).append('<p style="font-size: 12px;">' + r + '</p>');
+			$('td[data-year=2019][data-month=7]').eq(i + firstIndex).append('<p style="font-size:12px;">' + r + '</p>');
+
+			//$('td[data-year=2019][data-month=7] a:contains("' + i + '")').append('<p style="font-size: 12px;">' + r + '</p>');
+		}
 	});
 
 	//달력 닫기 :: 목업확인용
