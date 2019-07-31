@@ -194,6 +194,17 @@ var airCalendar = {
             dataRoot[0].eVal = d2;
             dataRoot[0].eDay = day2;
         }
+
+        // 일수 계산
+        var arr1_1 = d1.split('.');
+        var arr2_1 = d2.split('.');
+        var dat1_1 = new Date(arr1_1[0], arr1_1[1], arr1_1[2]);
+        var dat2_1 = new Date(arr2_1[0], arr2_1[1], arr2_1[2]);
+
+        var diff_1 = dat2_1 - dat1_1;
+        var currDay_1 = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+        $('#day__count2').text( diff_1/currDay_1 );
+
         ROOMFINDER.search.finderInputIsEmptyDetect();
     },
     callDraw : function(){
@@ -362,6 +373,19 @@ var drawAirDatepicker =  function(){
                 $d2.siblings('.box__date-info').find('.text__date').text(airCalendar.days[1]);
                 $(this).datepicker()
             }
+
+            // 일수 계산
+            var strDate1 = $('#form__input-layer-date1').val();
+            var strDate2 = $('#form__input-layer-date2').val();
+            var arr1 = strDate1.split('.');
+            var arr2 = strDate2.split('.');
+            var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
+            var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
+
+            var diff = dat2 - dat1;
+            var currDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+
+            $('#day__count1').text( diff/currDay );
 
             /*
             //시작날짜와 종료날짜를 반대로 처리 하는 로직

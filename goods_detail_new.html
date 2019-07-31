@@ -72,7 +72,7 @@
 				<span class="box__date-info"><em class="text__date"></em></span>
 			</a>
 		</div>
-		<p><span></span>박</p>
+		<p><span id="day__count2"></span>박</p>
 	</div>
 </div>
 
@@ -85,11 +85,11 @@
 	<div class="box__selected-day">
 		<ul class="list__selected-day sprite__air-common--before">
 			<li class="list-item">
-				<input type="text" id="form__input-layer-date1" class="form__input-layer-date" size="10" val="" placeholder="체크인 선택" readonly /><!-- placeholder 가는날 or 여정1-->
+				<input type="text" id="form__input-layer-date1" class="form__input-layer-date" size="10" val="" placeholder="체크인 선택" readonly onchange="testsubmit();" /><!-- placeholder 가는날 or 여정1-->
 				<span class="box__date-info"><em class="text__date"></em></span>
 			</li>
 			<li class="list-item list-item--active">
-				<input type="text" id="form__input-layer-date2" class="form__input-layer-date" placeholder="체크아웃 선택" readonly /><!-- 오는날 or 여정2-->
+				<input type="text" id="form__input-layer-date2" class="form__input-layer-date" placeholder="체크아웃 선택" readonly onchange="testsubmit();" /><!-- 오는날 or 여정2-->
 				<span class="box__date-info"><em class="text__date"></em></span>
 			</li>
 			<!--<li class="list-item">
@@ -97,7 +97,7 @@
 				<span class="text__day-title">여정3</span>
 			</li>-->
 		</ul>
-		<p><input type="text" id="num_nights">박</p>
+		<p><span id="day__count1"></span>박</p>
 		<div class="box__button"><a href="#" class="link__selected js-button__date-select">날짜 선택</a></div>
 	</div>
 
@@ -132,6 +132,14 @@ $(function() {
 		}
 		airCalendar.init();
 		VERTICALCOMMONUI.hashLayerOpen(hash,$(this));
+
+		/*function testsubmit() {
+			var dt1 = new Date($('#form__input-layer-date1').val());
+			var dt2 = new Date($('#form__input-layer-date2').val());
+			var diff =  Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+			$('#diff').val( diff );
+			return false;
+		}*/
 	});
 
 	//달력 닫기 :: 목업확인용
@@ -149,6 +157,7 @@ $(function() {
 		layerCloseControl('#box__layer-calendar');
 	});
 });
+
 </script>
 </body>
 </html>
