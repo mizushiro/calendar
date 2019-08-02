@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -85,17 +85,30 @@
 	<div class="box__selected-day">
 		<div class="list__selected-day sprite__air-common--before">
 			<div class="list-item">
-				<input type="text" id="form__input-layer-date1" class="form__input-layer-date" size="10" val="" placeholder="체크인 선택" readonly onchange="testsubmit();" /><!-- placeholder 가는날 or 여정1-->
+				<input type="text" id="form__input-layer-date1" class="form__input-layer-date" size="10" val="" placeholder="체크인 선택" readonly /><!-- placeholder 가는날 or 여정1-->
 				<span class="box__date-info"><em class="text__date"></em></span>
 			</div>
 			<div class="list-item list-item--active">
-				<input type="text" id="form__input-layer-date2" class="form__input-layer-date" placeholder="체크아웃 선택" readonly onchange="testsubmit();" /><!-- 오는날 or 여정2-->
+				<input type="text" id="form__input-layer-date2" class="form__input-layer-date" placeholder="체크아웃 선택" readonly /><!-- 오는날 or 여정2-->
 				<span class="box__date-info"><em class="text__date"></em></span>
 			</div>
 		</div>
 		<p><span id="day__count1"></span>박</p>
 		<div class="box__button"><a href="#" class="link__selected js-button__date-select">날짜 선택</a></div>
 	</div>
+
+	<!--
+	<br/>
+	날짜 : <input type="text" id="year" value="2019">년 <input type="text" id="month" value="8">월 <input type="text" id="day" value="2">일
+	<br/>
+	내용 : <input type="text" id="txt" value="TEST">
+	<br/>
+	색상 : <input type="text" id="color" value="#000000">(예 : #FFFFFF)
+	<br/>
+	&lt;!&ndash; <button onclick="javascript:btnTextInputAll();">특정월 문자 변경</button> &ndash;&gt;
+	<button onclick="javascript:btnTextInput();">특정일 문자 변경</button>
+	<button onclick="javascript:btnTextClearAll();">특정월 문자 삭제</button>
+	<button onclick="javascript:btnTextClear();">특정일 문자 삭제</button>-->
 </div>
 
 
@@ -109,6 +122,7 @@
 <script>
 // 달력 테스트
 $(function() {
+	
 	$(document).on('click', '.link__set-date', function () {
 		var hash = $(this).attr('href');
 		var $calendar = $('#box__layer-calendar');
@@ -117,7 +131,7 @@ $(function() {
 		var $text1 = $calendar.find('.text__day-title').eq(0);
 		var $text2 = $calendar.find('.text__day-title').eq(1);
 		//구간별 레이어 class 설정
-		if (ROOMFINDER) {
+		if (AIRFINDER) {
 			$calendar.attr('class', 'box__layer-air-finder box__layer-air-finder-calendar box__layer-air-finder-calendar--roundtrip');
 			$input1.attr('placeholder', '체크인 선택');
 			$input2.attr('placeholder', '체크아웃 선택');
@@ -125,24 +139,7 @@ $(function() {
 			$text2.text('체크아웃');
 		}
 		airCalendar.init();
-		VERTICALCOMMONUI.hashLayerOpen(hash,$(this));
-
-		var $MonthTdList = $('td[data-year=2019][data-month=7]');
-		var $firstTd = $('td[data-year=2019][data-month=7] a:contains("1")').eq(0);
-		var firstIndex = $MonthTdList.index($firstTd);
-
-		//var $firstTd = $('td[data-year=2019][data-month=7] a:contains("1")');
-
-		for (var i = 1; i <= 31; i++) {
-			//var r = (Math.floor(Math.random() * 100) + 1) * 1000;
-			var r = (Math.floor(124000));
-			var r = r.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-			//$('td').eq(i + firstIndex).append('<p style="font-size: 12px;">' + r + '</p>');
-			$('td[data-year=2019][data-month=7]').eq(i + firstIndex).append('<p style="font-size:12px;">' + r + '</p>');
-
-			//$('td[data-year=2019][data-month=7] a:contains("' + i + '")').append('<p style="font-size: 12px;">' + r + '</p>');
-		}
+		VERTICALCOMMONUI.hashLayerOpen(hash, $(this));
 	});
 
 	//달력 닫기 :: 목업확인용
@@ -161,6 +158,14 @@ $(function() {
 	});
 });
 
+var leftTextArray = new Array('124,000', '124,000', 'left3', 'left4', 'left5', 'left6', 'left7', 'left8', 'left9', 'left10', 'left11', 'left12', 'left13', 'left14', 'left15', 'left16', 'left17', 'left18', 'left19', 'left20', 'left21', 'left22', 'left23', 'left24', 'left25', 'left26', 'left27', 'left28', 'left29', 'left30', 'left31');
+var rightTextArray = new Array('right1', 'right2', 'right3', 'right4', 'right5', 'right6', 'right7', 'right8', 'right9', 'right10', 'right11', 'right12', 'right13', 'right14', 'right15', 'right16', 'right17', 'right18', 'right19', 'right20', 'right21', 'right22', 'right23', 'right24', 'right25', 'right26', 'right27', 'right28', 'right29', 'right30', 'right31');
+
+function textInputAll(year, month, textArray) {
+	for(var i = 0; i < 31; i++) {
+		$('#' + year + '-' + (month - 1) + '-' + (i + 1)).html(textArray[i]);
+	}
+}
 </script>
 </body>
 </html>
